@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>متتبع الأعمار والمهام اليومية</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Login/Register Section -->
+        <div id="authSection" class="auth-container">
+            <div class="auth-card">
+                <h1>متتبع الأعمار والمهام</h1>
+                <div class="auth-tabs">
+                    <button class="auth-tab active" data-tab="login">دخول</button>
+                    <button class="auth-tab" data-tab="register">إنشاء حساب</button>
+                </div>
+
+                <!-- Login Form -->
+                <form id="loginForm" class="auth-form active">
+                    <div class="form-group">
+                        <label for="loginEmail">البريد الإلكتروني</label>
+                        <input type="email" id="loginEmail" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="loginPassword">كلمة المرور</label>
+                        <input type="password" id="loginPassword" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">دخول</button>
+                    <div id="loginError" class="error-message"></div>
+                </form>
+
+                <!-- Register Form -->
+                <form id="registerForm" class="auth-form">
+                    <div class="form-group">
+                        <label for="registerEmail">البريد الإلكتروني</label>
+                        <input type="email" id="registerEmail" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="registerPassword">كلمة المرور</label>
+                        <input type="password" id="registerPassword" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="birthDate">تاريخ الميلاد</label>
+                        <input type="date" id="birthDate" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">إنشاء حساب</button>
+                    <div id="registerError" class="error-message"></div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Main Dashboard -->
+        <div id="mainSection" class="hidden">
+            <!-- Header -->
+            <header class="header">
+                <div class="header-content">
+                    <h1>متتبع الأعمار والمهام</h1>
+                    <div class="header-actions">
+                        <div class="age-display">
+                            <div class="age-item">
+                                <span class="age-label">السنين</span>
+                                <span class="age-value" id="ageYears">0</span>
+                            </div>
+                            <div class="age-item">
+                                <span class="age-label">الشهور</span>
+                                <span class="age-value" id="ageMonths">0</span>
+                            </div>
+                            <div class="age-item">
+                                <span class="age-label">الأسابيع</span>
+                                <span class="age-value" id="ageWeeks">0</span>
+                            </div>
+                            <div class="age-item">
+                                <span class="age-label">الأيام</span>
+                                <span class="age-value" id="ageDays">0</span>
+                            </div>
+                        </div>
+                        <button id="logoutBtn" class="btn btn-secondary">خروج</button>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Navigation -->
+            <nav class="navigation">
+                <div class="nav-container">
+                    <div class="view-selector">
+                        <button class="view-btn active" data-view="day">يومي</button>
+                        <button class="view-btn" data-view="week">أسبوعي</button>
+                        <button class="view-btn" data-view="month">شهري</button>
+                        <button class="view-btn" data-view="year">سنوي</button>
+                    </div>
+                    <div class="nav-controls">
+                        <button id="prevBtn" class="btn btn-small">السابق</button>
+                        <span id="dateDisplay" class="date-display"></span>
+                        <button id="nextBtn" class="btn btn-small">التالي</button>
+                        <button id="todayBtn" class="btn btn-small">اليوم</button>
+                    </div>
+                </div>
+            </nav>
+
+            <!-- Main Content -->
+            <div class="main-content">
+                <!-- Sidebar -->
+                <aside class="sidebar">
+                    <div class="sidebar-section">
+                        <h3>إضافة مهمة جديدة</h3>
+                        <form id="addTaskForm">
+                            <div class="form-group">
+                                <label for="taskTitle">عنوان المهمة</label>
+                                <input type="text" id="taskTitle" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="taskDescription">الوصف</label>
+                                <textarea id="taskDescription" rows="3"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="taskFrequency">التكرار</label>
+                                <select id="taskFrequency">
+                                    <option value="daily">يومي</option>
+                                    <option value="weekly">أسبوعي</option>
+                                    <option value="monthly">شهري</option>
+                                    <option value="yearly">سنوي</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary">إضافة مهمة</button>
+                            <div id="taskError" class="error-message"></div>
+                        </form>
+                    </div>
+
+                    <div class="sidebar-section">
+                        <h3>الإحصائيات السريعة</h3>
+                        <div class="stats-summary">
+                            <div class="stat-item">
+                                <span class="stat-label">إجمالي المهام</span>
+                                <span class="stat-value" id="totalTasks">0</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">المهام المكتملة</span>
+                                <span class="stat-value" id="completedTasks">0</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">نسبة الإنجاز</span>
+                                <span class="stat-value" id="completionRate">0%</span>
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+
+                <!-- Calendar/Grid View -->
+                <main class="calendar-container">
+                    <div id="dayView" class="view active">
+                        <div class="day-header">
+                            <h2 id="dayTitle"></h2>
+                            <div class="performance-badge" id="dayPerformance"></div>
+                        </div>
+                        <div class="tasks-list" id="dayTasksList"></div>
+                    </div>
+
+                    <div id="weekView" class="view">
+                        <table class="calendar-table">
+                            <thead>
+                                <tr id="weekHeader"></tr>
+                            </thead>
+                            <tbody id="weekBody"></tbody>
+                        </table>
+                    </div>
+
+                    <div id="monthView" class="view">
+                        <table class="calendar-table month-table">
+                            <thead>
+                                <tr id="monthHeader"></tr>
+                            </thead>
+                            <tbody id="monthBody"></tbody>
+                        </table>
+                    </div>
+
+                    <div id="yearView" class="view">
+                        <div class="year-grid" id="yearGrid"></div>
+                    </div>
+                </main>
+            </div>
+
+            <!-- Statistics Modal -->
+            <div id="statsModal" class="modal hidden">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <h2>الإحصائيات التفصيلية</h2>
+                    <div class="stats-grid" id="statsGrid"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="importmap">
+    {
+        "imports": {
+            "@supabase/supabase-js": "https://esm.sh/@supabase/supabase-js@2.38.4"
+        }
+    }
+    </script>
+    <script type="module" src="config.js"></script>
+    <script type="module" src="app.js"></script>
+</body>
+</html>
